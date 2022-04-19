@@ -27,9 +27,9 @@ RUN mkdir /opt/xml && mkdir /opt/notes && \
     wget -P /opt/ https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
     cd /opt/ && tar -xvf /opt/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 
-RUN pip3 install Django requests xmltodict && \
+ADD pip3 install Django requests xmltodict && \
     cd /opt/ && django-admin startproject nmapdashboard && cd /opt/nmapdashboard && \
-    ADD git clone https://github.com/kbrown1504/CYBR-Capstone.git nmapreport && \
+    git clone https://github.com/kbrown1504/CYBR-Capstone.git nmapreport && \
     cd nmapreport && git checkout master
 
 RUN cp /opt/nmapdashboard/nmapreport/docker/settings.py /opt/nmapdashboard/nmapdashboard/
