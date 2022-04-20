@@ -17,7 +17,10 @@ def login(request):
 	return render(request, 'nmapreport/nmap_auth.html', r)
 
 def setscanfile(request, scanfile):
-	xmlfiles = os.listdir('/opt/xml')
+
+	dirs = os.listdir('opt/xml')
+	for dir in dirs
+		xmlfiles = os.listdir('/opt/xml'+dir)
 
 	for i in xmlfiles:
 		if i == scanfile:
