@@ -331,8 +331,8 @@ def details(request, address):
 	niktoDir = '/opt/xml/'+request.session['scanfiledir']+'../nikto/'
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
-		niktoJson = json.dumps(xmltodict.parse(open(niktoDir+scan, 'r')).read()['niktoscan'])
-		r['nikto'] += niktoJson
+		niktoJson = json.dumps(xmltodict.parse(open(niktoDir+scan, 'r')).read())
+		r['nikto'] += str(niktoJson)
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
