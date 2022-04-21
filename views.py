@@ -361,7 +361,7 @@ def index(request, filterservice="", filterportid=""):
 				xmlfilescount = (xmlfilescount + 1)
 
 				try:
-					oo = xmltodict.parse(open('/opt/xml/'+i, 'r').read())
+					oo = xmltodict.parse(open('/opt/xml/'dir+'/nmap/'+i, 'r').read())
 				except:
 					r['tr'][i] = {'filename':html.escape(i), 'start': 0, 'startstr': 'Incomplete / Invalid', 'hostnum':0, 'href':'#!', 'portstats':{'po':0,'pc':0,'pf':0}}
 					continue
