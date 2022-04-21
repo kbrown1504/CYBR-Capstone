@@ -332,7 +332,7 @@ def details(request, address):
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
 		niktoJson = json.dumps(xmltodict.parse(open(niktoDir+scan, 'r')).read())
-		r['nikto'] += str(niktoJson)
+		r['nikto'] += str(niktoJson).encode('utf-8').strip()
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
