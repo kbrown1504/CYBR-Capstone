@@ -22,10 +22,10 @@ def setscanfile(request, scanfile):
 	for dir in dirs:
 		xmlfiles = os.listdir('/opt/xml/'+dir+'/nmap')
 
-	for i in xmlfiles:
-		if i == scanfile:
-			request.session['scanfile'] = i
-			break
+		for i in xmlfiles:
+			if i == scanfile:
+				request.session['scanfile'] = dir+'/nmap/'+i
+				break
 
 	if scanfile == 'unset':
 		if 'scanfile' in request.session:
