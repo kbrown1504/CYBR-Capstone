@@ -19,7 +19,7 @@ def login(request):
 def setscanfile(request, scanfile):
 
 	dirs = os.listdir('opt/xml')
-	for dir in dirs
+	for dir in dirs:
 		xmlfiles = os.listdir('/opt/xml/'+dir+'/nmap')
 
 	for i in xmlfiles:
