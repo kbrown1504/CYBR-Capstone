@@ -27,9 +27,9 @@ def setscanfile(request, scanfile):
 				request.session['scanfile'] = dir+'/nmap/'+i
 				break
 
-	if scanfile == 'unset':
-		if 'scanfile' in request.session:
-			del(request.session['scanfile'])
+		if scanfile == 'unset':
+			if 'scanfile' in request.session:
+				del(request.session['scanfile'])
 
 	return render(request, 'nmapreport/nmap_hostdetails.html', { 'js': '<script> location.href="/"; </script>' })
 
@@ -345,60 +345,62 @@ def index(request, filterservice="", filterportid=""):
 		o = json.loads(r['out2'])
 	else:
 		# no file selected
-		xmlfiles = os.listdir('/opt/xml')
+		dirs = os.listdir('/opt/xml')
 
 		r['tr'] = {}
 		r['stats'] = { 'po':0, 'pc':0, 'pf':0}
 
 		xmlfilescount = 0
-		for i in xmlfiles:
-			if re.search('\.xml$', i) is None:
-				continue
+		for dir in dirs:
+			xmlfiles = os.listdir(dir+'/nmap')
+			for i in xmlfiles:
+				if re.search('\.xml$', i) is None:
+					continue
 
-			#portstats = {}
-			xmlfilescount = (xmlfilescount + 1)
+				#portstats = {}
+				xmlfilescount = (xmlfilescount + 1)
 
-			try:
-				oo = xmltodict.parse(open('/opt/xml/'+i, 'r').read())
-			except:
-				r['tr'][i] = {'filename':html.escape(i), 'start': 0, 'startstr': 'Incomplete / Invalid', 'hostnum':0, 'href':'#!', 'portstats':{'po':0,'pc':0,'pf':0}}
-				continue
+				try:
+					oo = xmltodict.parse(open('/opt/xml/'+i, 'r').read())
+				except:
+					r['tr'][i] = {'filename':html.escape(i), 'start': 0, 'startstr': 'Incomplete / Invalid', 'hostnum':0, 'href':'#!', 'portstats':{'po':0,'pc':0,'pf':0}}
+					continue
 
-			r['out2'] = json.dumps(oo['nmaprun'], indent=4)
-			o = json.loads(r['out2'])
+				r['out2'] = json.dumps(oo['nmaprun'], indent=4)
+				o = json.loads(r['out2'])
 
-			if 'host' in o:
-				if type(o['host']) is not dict:
-					hostnum = str(len(o['host']))
+				if 'host' in o:
+					if type(o['host']) is not dict:
+						hostnum = str(len(o['host']))
+					else:
+						hostnum = '1'
 				else:
-					hostnum = '1'
-			else:
-				hostnum = '0'
+					hostnum = '0'
 
-			if hostnum != '0':
-				viewhref = '/setscanfile/'+html.escape(i)
-			else:
-				viewhref = '#!'
+				if hostnum != '0':
+					viewhref = '/setscanfile/'+html.escape(i)
+				else:
+					viewhref = '#!'
 
-			filename = i
-			if re.search('^webmapsched\_[0-9\.]+',i):
-				m = re.search('^webmapsched\_([0-9\.]+)\_(.+)',i)
-				filename = '<i class="fas fa-calendar-alt grey-text"></i> '+html.escape(m.group(2))
+				filename = i
+				if re.search('^webmapsched\_[0-9\.]+',i):
+					m = re.search('^webmapsched\_([0-9\.]+)\_(.+)',i)
+					filename = '<i class="fas fa-calendar-alt grey-text"></i> '+html.escape(m.group(2))
 
-			portstats = nmap_ports_stats(i)
+				portstats = nmap_ports_stats(i)
 
-			r['stats']['po'] = (r['stats']['po'] + portstats['po'])
-			r['stats']['pc'] = (r['stats']['pc'] + portstats['pc'])
-			r['stats']['pf'] = (r['stats']['pf'] + portstats['pf'])
+				r['stats']['po'] = (r['stats']['po'] + portstats['po'])
+				r['stats']['pc'] = (r['stats']['pc'] + portstats['pc'])
+				r['stats']['pf'] = (r['stats']['pf'] + portstats['pf'])
 
-			r['tr'][o['@start']] = {
-				'filename':filename,
-				'start': o['@start'],
-				'startstr': html.escape(o['@startstr']),
-				'hostnum':hostnum,
-				'href':viewhref,
-				'portstats':portstats
-			}
+				r['tr'][o['@start']] = {
+					'filename':filename,
+					'start': o['@start'],
+					'startstr': html.escape(o['@startstr']),
+					'hostnum':hostnum,
+					'href':viewhref,
+					'portstats':portstats
+				}
 
 		r['tr'] = OrderedDict(sorted(r['tr'].items()))
 		r['stats']['xmlcount'] = xmlfilescount
