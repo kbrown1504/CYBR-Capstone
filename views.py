@@ -24,6 +24,7 @@ def setscanfile(request, scanfile):
 
 		for i in xmlfiles:
 			if i == scanfile:
+				request.session['scanfiledir'] = dir+'/nmap/'
 				request.session['scanfile'] = i
 				break
 
@@ -340,7 +341,7 @@ def index(request, filterservice="", filterportid=""):
 	r['webmapver'] = 'WebMap '+gitcmd.read()+'<br>This project is currently a beta, please <b>DO NOT</b> expose WebMap to internet.<br>This version is <b>NOT</b> production ready.'
 
 	if 'scanfile' in request.session:
-		oo = xmltodict.parse(open('/opt/xml/'+request.session['scanfile'], 'r').read())
+		oo = xmltodict.parse(open('/opt/xml/'+request.session['scanfiledir']+request.session['scanfile'], 'r').read())
 		r['out2'] = json.dumps(oo['nmaprun'], indent=4)
 		o = json.loads(r['out2'])
 	else:
