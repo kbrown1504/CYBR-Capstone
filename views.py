@@ -815,9 +815,9 @@ def scan_diff(request, f1, f2):
 		r['auth'] = True
 
 	try:
-		if xmltodict.parse(open('/opt/xml/'+f1, 'r').read()) is not None:
+		if xmltodict.parse(open('/opt/xml/'+request.session['scanfiledir']+f1, 'r').read()) is not None:
 			r['f1'] = f1
-		if xmltodict.parse(open('/opt/xml/'+f2, 'r').read()) is not None:
+		if xmltodict.parse(open('/opt/xml/'+request.session['scanfiledir']+f2, 'r').read()) is not None:
 			r['f2'] = f2
 	except:
 		r['f1'] = ''
