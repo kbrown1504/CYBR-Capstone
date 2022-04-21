@@ -18,13 +18,13 @@ def login(request):
 
 def setscanfile(request, scanfile):
 
-	dirs = os.listdir('opt/xml')
+	dirs = os.listdir('/opt/xml')
 	for dir in dirs:
-		xmlfiles = os.listdir(dir+'/nmap')
+		xmlfiles = os.listdir('/opt/xml/'+dir+'/nmap')
 
 		for i in xmlfiles:
 			if i == scanfile:
-				request.session['scanfile'] = dir+'/nmap/'+i
+				request.session['scanfile'] = i
 				break
 
 		if scanfile == 'unset':
@@ -352,7 +352,7 @@ def index(request, filterservice="", filterportid=""):
 
 		xmlfilescount = 0
 		for dir in dirs:
-			xmlfiles = os.listdir(dir+'/nmap')
+			xmlfiles = os.listdir('/opt/xml/'+dir+'/nmap')
 			for i in xmlfiles:
 				if re.search('\.xml$', i) is None:
 					continue
