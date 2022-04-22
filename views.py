@@ -333,7 +333,7 @@ def details(request, address):
 	for scan in niktoScans:
 		d = xmltodict.parse(open(niktoDir+scan, 'r').read())
 		niktoJson = json.dumps(d['niktoscan'])
-		r['niktocommand'] = '<p>nikto ' + str(json.dumps(d['niktoscan']['@options']).encode('utf-8').strip()) + '</p>'
+		r['niktocommand'] = '<p>nikto ' + str(json.dumps(d['niktoscan']['niktoscan']['@options']).encode('utf-8').strip()) + '</p>'
 		r['nikto'] += str(niktoJson.encode('utf-8').strip())
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
