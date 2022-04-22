@@ -332,9 +332,14 @@ def details(request, address):
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
 		d = xmltodict.parse(open(niktoDir+scan, 'r').read())
-		niktoJson = json.dumps(d['niktoscan'])
-		r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']) + '</p>'
-		r['nikto'] += niktoJson
+		niktoAddr = json.dumps(d['niktoscan']['niktoscan']['scandetails']['@targetip']).strip('\"')
+		if niktoAddr == r['address']:
+			niktoJson = json.dumps(d['niktoscan']).strip('\"')
+			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']) + '</p>'
+			r['nikto'] += '<h2>Issues Found:</h2>'
+			issues = d['niktoscan']['niktoscan']['scandetails']['item']
+			for issue in issues:
+				r['nikto'] += '<p>' + json.dumps(issue).strip('\"') + '</p>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
