@@ -352,7 +352,7 @@ def details(request, address):
 				r['niktotable'] += '<div class=\"small\" style=\"margin-top:10px;\">'
 				r['niktotable'] += '<b class=\"grey-text\">Vulnerability Description: </b>' + issueDesc + '<br>'
 
-				# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
 				if issueId != 0:
 					r['niktotable'] += '<b class=\"grey-text\">OSVDB Link: </b><a href=' + issueLink + '>' + issueLink + '</a><br>'
