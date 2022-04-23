@@ -345,8 +345,8 @@ def details(request, address):
 
 				issueCount += 1
 
-				issueDesc = json.dumps(issue['description'].strip('\"'))
-				issueId = int(json.dumps(issue['@osvdbid'].strip('\"')))
+				issueDesc = json.dumps(issue['description']).strip('\"')
+				issueId = int(json.dumps(issue['@osvdbid']).strip('\"'))
 				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
 				r['niktotable'] += '<div class="small" style="margin-top:10px;">'
