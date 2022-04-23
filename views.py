@@ -336,11 +336,16 @@ def details(request, address):
 		if niktoAddr == r['address']:
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
-			r['nikto'] += '<span><b>Issues Found:</b></span><br>'
+			r['nikto'] += '<br><span><b>Issues Found:</b></span><br>'
 			issues = d['niktoscan']['niktoscan']['scandetails']['item']
+			issueCount = 0
 			for issue in issues:
-				r['nikto'] += '<p><b>Issue Description</b></p><br><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
-				r['nikto'] += '<br>'
+				issueCount += 1
+				r['nikto'] += '<p><b>Issue ' + issueCount + '</b></p><br><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+				id = issue['osvdbid']
+				if id != 0:
+					r['nikto'] += '<a href=' + json.dumps(issue['osvdblink']) + '>' + json.dumps(issue['osvdblink'].strip('\"')) + "</a>"
+				# r['nikto'] += '<br>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
