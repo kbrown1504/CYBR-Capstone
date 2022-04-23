@@ -348,8 +348,8 @@ def details(request, address):
 				issueId = int(issue['@osvdbid'])
 				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
-				r['niktotable'] += '<div class=\"small\" style=\"margin-top:10px;\">' +
-					'<b class=\"grey-text\">Vulnerability Description: </b>' + issueDesc + '<br>'
+				r['niktotable'] += '<div class=\"small\" style=\"margin-top:10px;\">'
+				r['niktotable'] += '<b class=\"grey-text\">Vulnerability Description: </b>' + issueDesc + '<br>'
 
 				# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
