@@ -346,15 +346,18 @@ def details(request, address):
 				issueCount += 1
 
 				issueDesc = json.dumps(issue['description']).strip('\"')
+				issueLocation = json.dumps(issue['namelink']).strip('\"')
 				issueId = int(json.dumps(issue['@osvdbid']).strip('\"'))
 				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
 				r['niktotable'] += '<div class="small" style="margin-top:10px;">'
+				r['niktotable'] += '<span class="title-small grey-text">Location: <a href=' + issueLocation + '>' + issueLocation + '</a></span>'
 				r['niktotable'] += '<p><b class="grey-text">Vulnerability Description: </b>' + issueDesc + '</p><br>'
 
 				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
-				if issueId != 0: r['niktotable'] += '<p><b class="grey-text">OSVDB Link: </b></p><a href=' + issueLink + '>' + issueLink + '</a><br>'
+				if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ issueId +\
+					'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
 				r['niktotable'] += '</div></td></tr>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
