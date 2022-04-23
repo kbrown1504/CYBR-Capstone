@@ -341,7 +341,7 @@ def details(request, address):
 			issueCount = 0
 			for issue in issues:
 				issueCount += 1
-				r['nikto'] += '<p><b>Issue ' + issueCount + '</b></p><br><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><br><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				id = issue['osvdbid']
 				if id != 0:
 					r['nikto'] += '<a href=' + json.dumps(issue['osvdblink']).strip('\"') + '>' + json.dumps(issue['osvdblink'].strip('\"')) + '</a>'
