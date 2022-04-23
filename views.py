@@ -356,10 +356,10 @@ def details(request, address):
 				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
 				r['niktotable'] += '<div class="small" style="margin-top:10px;">'
-				r['niktotable'] += '<span class="title-small grey-text">Location: <a href=' + issueLocation + '>' + issueLocation + '</a></span>'
+				r['niktotable'] += '<span class="grey-text">Location: <a href=' + issueLocation + '>' + issueLocation + '</a></span>'
 				r['niktotable'] += '<p><b class="grey-text">Vulnerability Description: </b>' + issueDesc + '</p><br>'
 
-				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+				# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
 				if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
 					'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
