@@ -342,9 +342,9 @@ def details(request, address):
 			for issue in issues:
 				issueCount += 1
 				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><br><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
-				id = issue['osvdbid']
+				id = issue['@osvdbid']
 				if id != 0:
-					r['nikto'] += '<a href=' + json.dumps(issue['osvdblink']).strip('\"') + '>' + json.dumps(issue['osvdblink'].strip('\"')) + '</a>'
+					r['nikto'] += '<a href=' + json.dumps(issue['@osvdblink']).strip('\"') + '>' + json.dumps(issue['@osvdblink'].strip('\"')) + '</a>'
 				# r['nikto'] += '<br>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
