@@ -336,7 +336,7 @@ def details(request, address):
 		if niktoAddr == r['address']:
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
-			r['nikto'] += '<h2>Issues Found:</h2>'
+			r['nikto'] += '<span>Issues Found:</span>'
 			issues = d['niktoscan']['niktoscan']['scandetails']['item']
 			for issue in issues:
 				r['nikto'] += '<p>' + json.dumps(issue).strip('\"') + '</p>'
