@@ -328,6 +328,7 @@ def details(request, address):
 	'</script>'
 
 	r['nikto'] = ''
+	r['niktotable'] = ''
 	niktoDir = '/opt/xml/'+request.session['scanfiledir']+'../nikto/'
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
