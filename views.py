@@ -337,6 +337,11 @@ def details(request, address):
 		if niktoAddr == r['address']:
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
+			scanDetails = d['niktoscan']['niktoscan']['scandetails']
+			r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
+			r['errorCount'] = json.dumps(scanDetails['@errors']).strip('\"')
+			r['checkCount'] = json.dumps(scanDetails['@checks']).strip('\"')
+			r['vulnCount'] = json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"')
 
 			issues = d['niktoscan']['niktoscan']['scandetails']['item']
 			issueCount = 0
@@ -356,7 +361,7 @@ def details(request, address):
 
 				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
-				if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ issueId +\
+				if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
 					'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
 				r['niktotable'] += '</div></td></tr>'
 

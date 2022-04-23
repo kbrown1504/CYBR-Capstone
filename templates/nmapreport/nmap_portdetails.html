@@ -90,10 +90,16 @@
 		<div class="card wmcard">
 			<div class="card-content">
 				<span class="card-title">Nikto Results</span>
-				{{ niktocommand|safe }}
+				<span class="blue-text">{{ niktocommand|safe }}</span>
+				<span>
+					<p><b>Host Banner: </b>{{ detectedServer|safe }}</p><br>
+					<p><b>Checks Run: </b>{{ checkCount|safe }}</p><br>
+					<p><b>Errors: </b>{{ errorCount|safe }}</p>
+					<p><b>Vulnerbilities Discovered: </b>{{ vulnCount|safe }}</p>
+				</span>
 				<table>
 					<thead>
-						<tr><th style="max-width:50px;">Vulnerabilities Found</th></tr>
+						<tr><th style="max-width:50px;">Vulnerabilities</th></tr>
 					</thead>
 					<tbody>
 						{{ niktotable|safe }}
