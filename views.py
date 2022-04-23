@@ -341,7 +341,7 @@ def details(request, address):
 			issues = d['niktoscan']['niktoscan']['scandetails']['item']
 			issueCount = 0
 			for issue in issues:
-				r['niktotable'] += '<tr><td style=\"width:200px;\">'
+				r['niktotable'] += '<tr><td style="width:200px;">'
 
 				issueCount += 1
 
@@ -349,13 +349,13 @@ def details(request, address):
 				issueId = int(issue['@osvdbid'])
 				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
-				r['niktotable'] += '<div class=\"small\" style=\"margin-top:10px;\">'
-				r['niktotable'] += '<b class=\"grey-text\">Vulnerability Description: </b>' + issueDesc + '<br>'
+				r['niktotable'] += '<div class="small" style="margin-top:10px;">'
+				r['niktotable'] += '<b class="grey-text">Vulnerability Description: </b>' + issueDesc + '<br>'
 
 				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
 				if issueId != 0:
-					r['niktotable'] += '<b class=\"grey-text\">OSVDB Link: </b><a href=' + issueLink + '>' + issueLink + '</a><br>'
+					r['niktotable'] += '<b class="grey-text">OSVDB Link: </b><a href=' + issueLink + '>' + issueLink + '</a><br>'
 					# r['nikto'] += '<a href=' + json.dumps(issue['@osvdblink']).strip('\"') + '>' + json.dumps(issue['@osvdblink'].strip('\"')) + '</a>'
 				# r['nikto'] += '<br>'
 				r['niktotable'] = '</div></td></tr>'
