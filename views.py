@@ -355,9 +355,7 @@ def details(request, address):
 				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
 				
 				if issueId != 0: r['niktotable'] += '<p><b>OSVDB Link: </b></p><a href=' + issueLink + '>' + issueLink + '</a><br>'
-				r['niktotable'] = '</div></td></tr>'
-
-				print(r['niktotable'])
+				r['niktotable'] += '</div></td></tr>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
