@@ -336,16 +336,28 @@ def details(request, address):
 		if niktoAddr == r['address']:
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
-			r['nikto'] += '<br><span><b>Issues Found:</b></span><br>'
+			# r['nikto'] += '<br><span><b>Issues Found:</b></span><br>'
 			issues = d['niktoscan']['niktoscan']['scandetails']['item']
 			issueCount = 0
 			for issue in issues:
+				r['niktotable'] += '<tr><td style=\"width:200px;\">'
+
 				issueCount += 1
-				r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><br><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
-				id = issue['@osvdbid']
-				if id != 0:
-					r['nikto'] += '<a href=' + json.dumps(issue['@osvdblink']).strip('\"') + '>' + json.dumps(issue['@osvdblink'].strip('\"')) + '</a>'
+
+				issueDesc = json.dumps(issue['description'].strip('\"'))
+				issueId = int(issue['@osvdbid'])
+				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
+
+				r['niktotable'] += '<div class=\"small\" style=\"margin-top:10px;\">' +
+					'<b class=\"grey-text\">Vulnerability Description: </b>' + issueDesc + '<br>'
+
+				# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+				
+				if issueId != 0:
+					r['niktotable'] += '<b class=\"grey-text\">OSVDB Link: </b><a href=' + issueLink + '>' + issueLink + '</a><br>'
+					# r['nikto'] += '<a href=' + json.dumps(issue['@osvdblink']).strip('\"') + '>' + json.dumps(issue['@osvdblink'].strip('\"')) + '</a>'
 				# r['nikto'] += '<br>'
+				r['niktotable'] = '</div></td></tr>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
