@@ -337,7 +337,7 @@ def details(request, address):
 		if niktoAddr == r['address']:
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
-			# r['nikto'] += '<br><span><b>Issues Found:</b></span><br>'
+
 			issues = d['niktoscan']['niktoscan']['scandetails']['item']
 			issueCount = 0
 			for issue in issues:
@@ -356,8 +356,6 @@ def details(request, address):
 				
 				if issueId != 0:
 					r['niktotable'] += '<p><b class="grey-text">OSVDB Link: </b></p><a href=' + issueLink + '>' + issueLink + '</a><br>'
-					# r['nikto'] += '<a href=' + json.dumps(issue['@osvdblink']).strip('\"') + '>' + json.dumps(issue['@osvdblink'].strip('\"')) + '</a>'
-				# r['nikto'] += '<br>'
 				r['niktotable'] = '</div></td></tr>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
