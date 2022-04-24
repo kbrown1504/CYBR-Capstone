@@ -333,10 +333,10 @@ def details(request, address):
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
 		d = xmltodict.parse(open(niktoDir+scan, 'r').read())
-		niktoAddr = json.dumps(d['niktoscan']['niktoscan']['scandetails']['@targetip']).strip('\"')
+		niktoAddr = json.dumps(d.get('niktoscan').get('niktoscan')[0].get('scandetails').get('@targetip').strip('\"')
 		if niktoAddr == r['address']:
-			niktoJson = json.dumps(d['niktoscan']).strip('\"')
-			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
+			# niktoJson = json.dumps(d['niktoscan']).strip('\"')
+			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan'][0]['@options']).strip('\"') + '</p>'
 
 			scans = d.get('niktoscan')
 			for key, scan in scans.items():
