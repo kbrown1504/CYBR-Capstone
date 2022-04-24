@@ -341,6 +341,8 @@ def details(request, address):
 			#r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan'][0]['@options']).strip('\"') + '</p>'
 
 		scans = d.get('niktoscan').get('niktoscan')
+		if (len(scans) <= 1):
+			scans = d.get('niktoscan')
 		for scan in scans:
 
 			scanDetails = scan.get('scandetails')
