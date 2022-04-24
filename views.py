@@ -338,7 +338,7 @@ def details(request, address):
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
 
-			niktoscans = d['niktoscan']
+			niktoscans = d['niktoscan']['niktoscan']
 			for scan in niktoscans:
 				scanDetails = scan['scandetails']
 				r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
