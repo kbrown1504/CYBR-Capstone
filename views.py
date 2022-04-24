@@ -396,7 +396,7 @@ def index(request, filterservice="", filterportid=""):
 				if re.search('\.xml$', i) is None:
 					continue
 
-				#portstats = {}
+				# portstats = {}
 				xmlfilescount = (xmlfilescount + 1)
 
 				try:
@@ -427,6 +427,7 @@ def index(request, filterservice="", filterportid=""):
 					filename = '<i class="fas fa-calendar-alt grey-text"></i> '+html.escape(m.group(2))
 
 				portstats = nmap_ports_stats(i)
+				r['portstatsStr'] += str(portstats) + '\n'
 
 				r['stats']['po'] = (r['stats']['po'] + portstats['po'])
 				r['stats']['pc'] = (r['stats']['pc'] + portstats['pc'])
