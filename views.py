@@ -343,7 +343,7 @@ def details(request, address):
 		scans = d.get('niktoscan').get('niktoscan')
 		for scan in scans:
 
-			scanDetails
+			scanDetails = None
 			if (type(scan) == 'str'):
 				scanDetails = scan['scandetails']
 			else:
