@@ -333,13 +333,19 @@ def details(request, address):
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
 		d = xmltodict.parse(open(niktoDir+scan, 'r').read())
-		niktoAddr = json.dumps(d.get('niktoscan').get('niktoscan')[0].get('scandetails').get('@targetip')).strip('\"')
-		if niktoAddr == r['address']:
+		#niktoAddr = json.dumps(d.get('niktoscan').get('niktoscan')[0].get('scandetails').get('@targetip')).strip('\"')
+		# if niktoAddr == r['address']:
 			# niktoJson = json.dumps(d['niktoscan']).strip('\"')
-			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan'][0]['@options']).strip('\"') + '</p>'
+			#r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan'][0]['@options']).strip('\"') + '</p>'
 
-			scans = d.get('niktoscan')
-			for key, scan in scans.items():
+		scans = d.get('niktoscan')
+		for key, scan in scans.items():
+
+			niktoAddr = json.dumps(scan.get('scandetails').get('@targetip')).strip('\"')
+
+			if niktoAddr == r['address']:
+				r['niktocommand'] = '<p>nikto ' + json.dumps(scan.get('@options')).strip('\"') + '</p>'
+
 				scanDetails = scan.get('scandetails')
 				r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
 				r['errorCount'] = json.dumps(scanDetails['@errors']).strip('\"')
