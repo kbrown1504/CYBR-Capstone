@@ -327,8 +327,10 @@ def details(request, address):
 	'}); '+\
 	'</script>'
 
-	r['nikto'] = ''
 	r['niktotable'] = ''
+	r['errorCount'] = 0
+	r['checkCount'] = 0
+	r['vulnCount'] = 0
 	niktoDir = '/opt/xml/'+request.session['scanfiledir']+'../nikto/'
 	niktoScans = os.listdir(niktoDir)
 	for scan in niktoScans:
@@ -347,10 +349,9 @@ def details(request, address):
 				r['niktocommand'] = '<p>nikto ' + json.dumps(scan.get('@options')).strip('\"') + '</p>'
 
 				scanDetails = scan.get('scandetails')
-				r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
-				r['errorCount'] = json.dumps(scanDetails['@errors']).strip('\"')
-				r['checkCount'] = json.dumps(scanDetails['@checks']).strip('\"')
-				r['vulnCount'] = json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"')
+				r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
+				r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
+				r['vulnCount'] += int(json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"'))
 
 				issues = scanDetails.get('item')
 				issueCount = 0
