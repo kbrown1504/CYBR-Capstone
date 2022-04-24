@@ -338,8 +338,8 @@ def details(request, address):
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
 
-			scans = d.get('niktoscan').get('niktoscan')
-			for scan in scans:
+			scans = d.get('niktoscan')
+			for key, scan in scans.items():
 				scanDetails = scan.get('scandetails')
 				r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
 				r['errorCount'] = json.dumps(scanDetails['@errors']).strip('\"')
