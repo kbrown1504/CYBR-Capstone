@@ -338,35 +338,37 @@ def details(request, address):
 			niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan']['@options']).strip('\"') + '</p>'
 
-			scans = d['niktoscan']
-			for scan in scans.items():
-				scanDetails = scan['scandetails']
-				r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
-				r['errorCount'] = json.dumps(scanDetails['@errors']).strip('\"')
-				r['checkCount'] = json.dumps(scanDetails['@checks']).strip('\"')
-				r['vulnCount'] = json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"')
+			# scans = d['niktoscan']['niktoscan']
+			# for scan in scans:
+			# 	scanDetails = scan['scandetails']
+			scanDetails = d['niktoscan']['niktoscan']['scandetails']
 
-				issues = scan['scandetails']['item']
-				issueCount = 0
-				for issue in issues:
-					r['niktotable'] += '<tr><td style="width:200px;">'
+			r['detectedServer'] = json.dumps(scanDetails['@targetbanner']).strip('\"')
+			r['errorCount'] = json.dumps(scanDetails['@errors']).strip('\"')
+			r['checkCount'] = json.dumps(scanDetails['@checks']).strip('\"')
+			r['vulnCount'] = json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"')
 
-					issueCount += 1
+			issues = scan['scandetails']['item']
+			issueCount = 0
+			for issue in issues:
+				r['niktotable'] += '<tr><td style="width:200px;">'
 
-					issueDesc = json.dumps(issue['description']).strip('\"')
-					issueLocation = json.dumps(issue['namelink']).strip('\"')
-					issueId = int(json.dumps(issue['@osvdbid']).strip('\"'))
-					issueLink = json.dumps(issue['@osvdblink']).strip('\"')
+				issueCount += 1
 
-					r['niktotable'] += '<div class="small" style="margin-top:10px;">'
-					r['niktotable'] += '<span class="grey-text"><b>Location: </b><a href=' + issueLocation + '>' + issueLocation + '</a></span>'
-					r['niktotable'] += '<p><b class="grey-text">Vulnerability Description: </b>' + issueDesc + '</p>'
+				issueDesc = json.dumps(issue['description']).strip('\"')
+				issueLocation = json.dumps(issue['namelink']).strip('\"')
+				issueId = int(json.dumps(issue['@osvdbid']).strip('\"'))
+				issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
-					# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
-					
-					if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
-						'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
-					r['niktotable'] += '</div></td></tr>'
+				r['niktotable'] += '<div class="small" style="margin-top:10px;">'
+				r['niktotable'] += '<span class="grey-text"><b>Location: </b><a href=' + issueLocation + '>' + issueLocation + '</a></span>'
+				r['niktotable'] += '<p><b class="grey-text">Vulnerability Description: </b>' + issueDesc + '</p>'
+
+				# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+				
+				if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
+					'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
+				r['niktotable'] += '</div></td></tr>'
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
