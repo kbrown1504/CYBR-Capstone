@@ -343,12 +343,14 @@ def details(request, address):
 		scans = d.get('niktoscan').get('niktoscan')
 		for scan in scans:
 
-			niktoAddr = json.dumps(scan.get('scandetails').get('@targetip')).strip('\"')
+			scanDetails = scan.get('scandetails')
+
+			niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
 
 			if niktoAddr == r['address']:
 				r['niktocommand'] = '<p>nikto ' + json.dumps(scan.get('@options')).strip('\"') + '</p>'
 
-				scanDetails = scan.get('scandetails')
+				# scanDetails = scan.get('scandetails')
 				r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
 				r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
 				r['vulnCount'] += int(json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"'))
