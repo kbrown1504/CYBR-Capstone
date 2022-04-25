@@ -340,14 +340,11 @@ def details(request, address):
 			# niktoJson = json.dumps(d['niktoscan']).strip('\"')
 			#r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan'][0]['@options']).strip('\"') + '</p>'
 
+		scans = []
 		scans = d.get('niktoscan').get('niktoscan')
 		for scan in scans:
 
-			scanDetails = None
-			if (type(scan) == str):
-				scanDetails = scan['scandetails']
-			else:
-				scanDetails = scan.get('scandetails')
+			scanDetails = scan.get('scandetails')
 
 			niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
 
