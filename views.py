@@ -350,12 +350,12 @@ def details(request, address):
 			else:
 				scanVar = scan
 
-			scanDetails = scan.get('scandetails')
+			scanDetails = scanVar.get('scandetails')
 
 			niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
 
 			if niktoAddr == r['address']:
-				r['niktocommand'] = '<p>nikto ' + json.dumps(scan.get('@options')).strip('\"') + '</p>'
+				r['niktocommand'] = '<p>nikto ' + json.dumps(scanVar.get('@options')).strip('\"') + '</p>'
 
 				# scanDetails = scan.get('scandetails')
 				r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
