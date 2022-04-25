@@ -342,11 +342,17 @@ def details(request, address):
 
 		scans = []
 		scans = d.get('niktoscan').get('niktoscan')
+		singleScan = False
 		for scan in scans:
+
+			#Weird bug when there is only one scan, but this should solve it
+			if (singleScan):
+				break
 
 			scanVar = None
 			if(type(scan) == str):
 				scanVar = d.get('niktoscan').get('niktoscan')
+				singleScan = True
 			else:
 				scanVar = scan
 
