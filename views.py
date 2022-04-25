@@ -344,7 +344,7 @@ def details(request, address):
 		scans = d.get('niktoscan').get('niktoscan')
 		for scan in scans:
 
-			scanVar = none
+			scanVar = None
 			if(type(scan) == str):
 				scanVar = d.get('niktoscan').get('niktoscan')
 			else:
