@@ -344,7 +344,7 @@ def details(request, address):
 		for scan in scans:
 
 			scanDetails = None
-			if (type(scan) == 'str'):
+			if (type(scan) == str):
 				scanDetails = scan['scandetails']
 			else:
 				scanDetails = scan.get('scandetails')
