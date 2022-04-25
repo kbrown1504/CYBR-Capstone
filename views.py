@@ -344,6 +344,9 @@ def details(request, address):
 		scans = d.get('niktoscan').get('niktoscan')
 		for scan in scans:
 
+			if(type(scan) == str):
+				scan = d.get('niktoscan')
+
 			scanDetails = scan.get('scandetails')
 
 			niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
@@ -356,6 +359,7 @@ def details(request, address):
 				r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
 				r['vulnCount'] += int(json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"'))
 
+				issues = []
 				issues = scanDetails.get('item')
 				issueCount = 0
 				for issue in issues:
