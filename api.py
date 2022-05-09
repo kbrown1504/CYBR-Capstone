@@ -349,7 +349,7 @@ def apiv1_scan(request):
 		else:
 			hostnum = '0'
 
-		portstats = nmap_ports_stats('', i)
+		portstats = nmap_ports_stats(request.session['scanfiledir'], i)
 
 		r['scans'][i] = {'filename':html.escape(i), 'startstr': html.escape(o['@startstr']), 'nhost':hostnum, 'port_stats':{'open':portstats['po'],'closed':portstats['pc'],'filtered':portstats['pf']}}
 

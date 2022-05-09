@@ -453,7 +453,7 @@ def index(request, filterservice="", filterportid=""):
 					m = re.search('^webmapsched\_([0-9\.]+)\_(.+)',i)
 					filename = '<i class="fas fa-calendar-alt grey-text"></i> '+html.escape(m.group(2))
 
-				portstats = nmap_ports_stats(dir+'/namp/', i)
+				portstats = nmap_ports_stats(request.session['scanfiledir'], i)
 
 				r['stats']['po'] = (r['stats']['po'] + portstats['po'])
 				r['stats']['pc'] = (r['stats']['pc'] + portstats['pc'])
