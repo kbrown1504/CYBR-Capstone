@@ -5,13 +5,9 @@ A Web Dashbord for Nmap XML Report
 
 ## Table Of Contents
 - [Usage](#usage)
-- [Video](#video)
 - [Features](#features)
 - [Third Parts](#third-parts)
 - [Security Issues](#security-issues)
-- [Contributors](#contributors)
-- [Contacts](#contacts)
-
 
 ## Screenshot
 <img src="https://i.imgur.com/ELZfqd0.png" /><br>
