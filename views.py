@@ -370,12 +370,13 @@ def details(request, address):
 						# scanDetails = scan.get('scandetails')
 						r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
 						r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
-						r['vulnCount'] += int(json.dumps(scanDetails['statistics']['@itemsfound']).strip('\"'))
 
 						issues = []
 						issues = scanDetails.get('item')
 						issueCount = 0
 						for issue in issues:
+							r['vulnCount'] += 1
+
 							r['niktotable'] += '<tr><td style="width:200px;">'
 
 							issueCount += 1
