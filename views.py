@@ -394,8 +394,8 @@ def details(request, address):
 							if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
 								'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
 							r['niktotable'] += '</div></td></tr>'
-			except:
-				continue
+		except:
+			continue
 
 	return render(request, 'nmapreport/nmap_portdetails.html', r)
 
