@@ -27,8 +27,12 @@ $ docker run -d \
          -v /tmp/cybr-capstone:/opt/xml \
          cybr-capstone
 
-$ # now you can run Nmap and save the XML Report on /tmp/webmap
-$ nmap -sT -A -T4 -oX /tmp/cybr-capstone/ScanDir/nmap/myscan.xml 192.168.1.0/24
+$ # now you can run Nmap and Nikto Scans and save the XML Reports on /tmp/cybr-capstone
+$ mkdir /tmp/cybr-capstone/<Scan Directory>
+$ mkdir /tmp/cybr-capstone/<Scan Directory>/nmap
+$ mkdir /tmp/cybr-capstone/<Scan Directory>/nikto
+$ nmap -sT -A -T4 -oX /tmp/cybr-capstone/<Scan Directory>/nmap/mynmapscan.xml 192.168.1.0/24
+$ nikto -h <host> -Formal xml -output /tmp/cybr-capstone/<Scan Directory>/nikto/myniktoscan.xml
 ```
 Now point your browser to http://localhost:8000
 
