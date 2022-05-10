@@ -27,38 +27,33 @@ A Web Dashbord for Nmap XML Report
 ## Usage
 You should use this with docker, just by sending this command:
 ```bash
-$ mkdir /tmp/webmap
+$ mkdir /tmp/cybr-capstone
+$ docker build -t cybr-capstone <path to Dockerfile> --no-cache
 $ docker run -d \
-         --name webmap \
-         -h webmap \
+         --name cybr-capstone \
+         -h cybr-capstone \
          -p 8000:8000 \
-         -v /tmp/webmap:/opt/xml \
-         reborntc/webmap
+         -v /tmp/cybr-capstone:/opt/xml \
+         cybr-capstone
 
 $ # now you can run Nmap and save the XML Report on /tmp/webmap
-$ nmap -sT -A -T4 -oX /tmp/webmap/myscan.xml 192.168.1.0/24
+$ nmap -sT -A -T4 -oX /tmp/cybr-capstone/ScanDir/nmap/myscan.xml 192.168.1.0/24
 ```
 Now point your browser to http://localhost:8000
 
 ### Generate new token
 In order to access to the WebMap dashboard, you need a token. You can create a new token with:
 ```bash
-$ docker exec -ti webmap /root/token
+$ docker exec -ti cybr-capstone /root/token
 ```
 
 ### Upgrade from previous release
 ```bash
 $ # stop running webmap container
-$ docker stop webmap
+$ docker stop cybr-capstone
 
 $ # remove webmap container
-$ docker rm webmap
-
-$ # pull new image from dockerhub
-$ docker pull reborntc/webmap
-
-$ # run WebMap
-$ curl -sL http://bit.ly/webmapsetup | bash
+$ docker rm cybr-capstone
 ```
 
 ### Run without Docker
