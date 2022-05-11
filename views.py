@@ -345,7 +345,7 @@ def details(request, address):
 		# try:
 		scans = []
 		scans = d['niktoscan']['niktoscan']
-		if instanceof(scans, dict):
+		if isinstance(scans, dict):
 			scans = [scans]
 		
 		for scan in scans:
@@ -362,7 +362,7 @@ def details(request, address):
 
 				issues = []
 				issues = scanDetails.get('item')
-				if instanceof(issues, dict):
+				if isinstance(issues, dict):
 					issues = [issues]
 				issueCount = 0
 				for issue in issues:
