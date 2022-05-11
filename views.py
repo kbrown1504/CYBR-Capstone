@@ -361,9 +361,9 @@ def details(request, address):
 					r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
 
 					issues = []
+					issues = scanDetails.get('item')
 					if instanceof(issues, dict):
 						issues = [issues]
-					issues = scanDetails.get('item')
 					issueCount = 0
 					for issue in issues:
 						r['vulnCount'] += 1
