@@ -344,17 +344,17 @@ def details(request, address):
 			#r['niktocommand'] = '<p>nikto ' + json.dumps(d['niktoscan']['niktoscan'][0]['@options']).strip('\"') + '</p>'
 		try:
 			scans = []
-			scans = d.get('niktoscan').get('niktoscan')
+			scans = d['niktoscan']['niktoscan']
 			if instanceof(scans, dict):
 				scans = [scans]
 			
 			for scan in scans:
-				scanDetails = scanVar.get('scandetails')
+				scanDetails = scan['scandetails']
 
-				niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
+				niktoAddr = json.dumps(scanDetails.['@targetip']).strip('\"')
 
 				if niktoAddr == r['address']:
-					r['niktocommand'] = '<p>nikto ' + json.dumps(scanVar.get('@options')).strip('\"') + '</p>'
+					r['niktocommand'] = '<p>nikto ' + json.dumps(scan['@options']).strip('\"') + '</p>'
 
 					# scanDetails = scan.get('scandetails')
 					r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
