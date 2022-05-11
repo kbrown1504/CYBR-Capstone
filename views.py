@@ -351,7 +351,7 @@ def details(request, address):
 			for scan in scans:
 				scanDetails = scan['scandetails']
 
-				niktoAddr = json.dumps(scanDetails.['@targetip']).strip('\"')
+				niktoAddr = json.dumps(scanDetails['@targetip']).strip('\"')
 
 				if niktoAddr == r['address']:
 					r['niktocommand'] = '<p>nikto ' + json.dumps(scan['@options']).strip('\"') + '</p>'
