@@ -345,8 +345,8 @@ def details(request, address):
 		try:
 			scans = []
 			scans = d.get('niktoscan').get('niktoscan')
-			if instanceof(scans, dict)
-			scans = [scans]
+			if instanceof(scans, dict):
+				scans = [scans]
 			
 			for scan in scans:
 				scanDetails = scanVar.get('scandetails')
