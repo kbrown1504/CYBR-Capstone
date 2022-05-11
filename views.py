@@ -345,56 +345,45 @@ def details(request, address):
 		try:
 			scans = []
 			scans = d.get('niktoscan').get('niktoscan')
-			if scans != None:
-				singleScan = False
-				for scan in scans:
+			if instanceof(scans, dict)
+			scans = [scans]
+			
+			for scan in scans:
+				scanDetails = scanVar.get('scandetails')
 
-					#Weird bug when there is only one scan, but this should solve it
-					if (singleScan):
-						break
+				niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
 
-					scanVar = None
-					if(type(scan) == str):
-						scanVar = d.get('niktoscan').get('niktoscan')
-						singleScan = True
-					else:
-						scanVar = scan
+				if niktoAddr == r['address']:
+					r['niktocommand'] = '<p>nikto ' + json.dumps(scanVar.get('@options')).strip('\"') + '</p>'
 
-					scanDetails = scanVar.get('scandetails')
+					# scanDetails = scan.get('scandetails')
+					r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
+					r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
 
-					niktoAddr = json.dumps(scanDetails.get('@targetip')).strip('\"')
+					issues = []
+					issues = scanDetails.get('item')
+					issueCount = 0
+					for issue in issues:
+						r['vulnCount'] += 1
 
-					if niktoAddr == r['address']:
-						r['niktocommand'] = '<p>nikto ' + json.dumps(scanVar.get('@options')).strip('\"') + '</p>'
+						r['niktotable'] += '<tr><td style="width:200px;">'
 
-						# scanDetails = scan.get('scandetails')
-						r['errorCount'] += int(json.dumps(scanDetails['@errors']).strip('\"'))
-						r['checkCount'] += int(json.dumps(scanDetails['@checks']).strip('\"'))
+						issueCount += 1
 
-						issues = []
-						issues = scanDetails.get('item')
-						issueCount = 0
-						for issue in issues:
-							r['vulnCount'] += 1
+						issueDesc = json.dumps(issue['description']).strip('\"')
+						issueLocation = json.dumps(issue['namelink']).strip('\"')
+						issueId = int(json.dumps(issue['@osvdbid']).strip('\"'))
+						issueLink = json.dumps(issue['@osvdblink']).strip('\"')
 
-							r['niktotable'] += '<tr><td style="width:200px;">'
+						r['niktotable'] += '<div class="small" style="margin-top:10px;">'
+						r['niktotable'] += '<span class="grey-text"><b>Location: </b><a href=' + issueLocation + '>' + issueLocation + '</a></span>'
+						r['niktotable'] += '<p><b class="grey-text">Vulnerability Description: </b>' + issueDesc + '</p>'
 
-							issueCount += 1
-
-							issueDesc = json.dumps(issue['description']).strip('\"')
-							issueLocation = json.dumps(issue['namelink']).strip('\"')
-							issueId = int(json.dumps(issue['@osvdbid']).strip('\"'))
-							issueLink = json.dumps(issue['@osvdblink']).strip('\"')
-
-							r['niktotable'] += '<div class="small" style="margin-top:10px;">'
-							r['niktotable'] += '<span class="grey-text"><b>Location: </b><a href=' + issueLocation + '>' + issueLocation + '</a></span>'
-							r['niktotable'] += '<p><b class="grey-text">Vulnerability Description: </b>' + issueDesc + '</p>'
-
-							# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
-							
-							if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
-								'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
-							r['niktotable'] += '</div></td></tr>'
+						# r['nikto'] += '<p><b>Issue ' + str(issueCount) + '.</b></p><p>' + json.dumps(issue['description']).strip('\"') + '</p>'
+						
+						if issueId != 0: r['niktotable'] += '<p><b class="grey-text">Details: </b>OSVDB-'+ str(issueId) +\
+							'</p><a href=' + issueLink + '>' + issueLink + '</a><br>'
+						r['niktotable'] += '</div></td></tr>'
 		except:
 			continue
 
